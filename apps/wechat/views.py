@@ -24,7 +24,7 @@ class Index(generic.View):
             token = settings.WECHATAPI["TOCKEN"]
             dlist = [token, timestamp, nonce]
             dlist.sort()
-            hashstr = ''.join([s for s in dlist])
+            hashstr = "".join([s for s in dlist])
             hashstr = hashlib.sha1(hashstr.encode()).hexdigest()
             if hashstr == signature:
                 return HttpResponse(echostr)
