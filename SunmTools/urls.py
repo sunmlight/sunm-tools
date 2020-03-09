@@ -20,4 +20,5 @@ from django.urls import path, include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("wechat/", include("wechat.urls")),
+    path("wf/", include("warframe.urls")),
 ]

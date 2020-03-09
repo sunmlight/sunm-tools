@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "warframe.apps.WarframeConfig",
     "wechat.apps.WechatConfig",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -115,9 +116,14 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-
 WECHATAPI = {
     "ID": os.environ.get("WECHAT_ID"),
     "SECRET": os.environ.get("WECHAT_SECRET"),
     "TOCKEN": os.environ.get("WECHAT_TOCKEN"),
+}
+
+WFAPI = {
+    "BASE_URL": "https://api.richasy.cn",
+    "ClientId": os.environ.get("WF_CID"),
+    "ClientSecret": os.environ.get("WF_CS"),
 }
