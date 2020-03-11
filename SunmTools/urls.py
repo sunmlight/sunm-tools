@@ -21,4 +21,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("wechat/", include("wechat.urls")),
     path("wf/", include("warframe.urls")),
+    path("note/", include("note.urls")),
 ]

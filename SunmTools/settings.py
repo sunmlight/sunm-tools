@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "note.apps.NoteConfig",
     "warframe.apps.WarframeConfig",
     "wechat.apps.WechatConfig",
     "django.contrib.admin",

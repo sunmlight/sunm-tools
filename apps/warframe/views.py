@@ -10,7 +10,7 @@ from . import helper
 # Create your views here.
 class Index(generic.View):
     def get(self, request):
-        return HttpResponse('test')
+        return HttpResponse('warframe')
 
 
 class GetKey(generic.View):
