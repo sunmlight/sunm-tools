@@ -128,3 +128,12 @@ WFAPI = {
     "ClientId": os.environ.get("WF_CID"),
     "ClientSecret": os.environ.get("WF_CS"),
 }
+
+# get cfg from local file
+if not (WECHATAPI["ID"] or WFAPI["ClientId"]):
+    import local_cfg
+    WECHATAPI = local_cfg.WECHATAPI
+    WFAPI = local_cfg.WFAPI
+    DATABASES = {
+        "default": local_cfg.DB
+    }

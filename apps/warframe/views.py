@@ -16,4 +16,4 @@ class Index(generic.View):
 class GetKey(generic.View):
     def get(self, request):
         r = helper.get_wf_key()
-        return HttpResponse('test') 
+        return HttpResponse('test')
