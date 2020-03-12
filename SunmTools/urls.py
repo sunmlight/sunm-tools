@@ -22,4 +22,5 @@ urlpatterns = [
     path("wechat/", include("wechat.urls")),
     path("wf/", include("warframe.urls")),
     path("note/", include("note.urls")),
+    path("notice/", include("notice.urls")),
 ]

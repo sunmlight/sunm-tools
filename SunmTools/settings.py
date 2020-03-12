@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "notice.apps.NoticeConfig",
     "note.apps.NoteConfig",
     "warframe.apps.WarframeConfig",
     "wechat.apps.WechatConfig",
