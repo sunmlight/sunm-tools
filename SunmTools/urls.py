@@ -15,12 +15,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.static import serve
+from django.conf import settings
+from django.urls import re_path
 
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
+    path("sadmin/", admin.site.urls),
     path("wechat/", include("wechat.urls")),
     path("wf/", include("warframe.urls")),
     path("note/", include("note.urls")),
     path("notice/", include("notice.urls")),
 ]
+
+urlpatterns += [
+        re_path(r'^static/(?P<path>.*)$', serve, {
+            'document_root': settings.STATIC_ROOT,
+        }),
+    ]
