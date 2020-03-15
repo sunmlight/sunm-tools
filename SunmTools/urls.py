@@ -21,6 +21,7 @@ from django.urls import re_path
 
 
 urlpatterns = [
+    path("", include("blog.urls")),
     path("sadmin/", admin.site.urls),
     path("wechat/", include("wechat.urls")),
     path("wf/", include("warframe.urls")),
