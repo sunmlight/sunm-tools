@@ -15,21 +15,21 @@
 <body>
     <div id="app" style="display: none;">
         <el-menu ref="menu" class="el-menu" mode="horizontal" background-color="#072a3a" text-color="white" active-text-color="#66b1ff" :default-active="menueactive" @select="handleSelect">
-            <el-menu-item index="1">Sunm</el-menu-item>
-            <el-menu-item index="2">文章</el-menu-item>
-            <el-menu-item index="3">记事本</el-menu-item>
+            <el-menu-item index="1"><i class="el-icon-s-home"></i>Sunm</el-menu-item>
+            <el-menu-item index="2"><i class="el-icon-s-management"></i>文章</el-menu-item>
+            <el-menu-item index="3"><i class="el-icon-notebook-2"></i>记事本</el-menu-item>
         </el-menu>
-        <div id="con" style="color: aliceblue;">
-            <div v-if="con.in1">
+        <el-container id="con" style="color: aliceblue;">
+            <el-main v-if="con.in1">
                 Building...
-            </div>
-            <div v-if="con.in2">
+            </el-main>
+            <el-main v-if="con.in2">
                 文章
-            </div>
-            <div v-if="con.in3">
+            </el-main>
+            <el-main v-if="con.in3">
                 记事本
-            </div>
-        </div>
+            </el-main>
+        </el-container>
     </div>
 </body>
 <script src="static/jquery-3.3.1.min.js"></script>
@@ -51,7 +51,15 @@
         },
         methods: {
             handleSelect(key, keyPath) {
-                console.log(key, keyPath);
+                const loading = this.$loading({
+                    lock: true,
+                    text: 'Loading',
+                    spinner: 'el-icon-loading',
+                    background: 'rgba(0, 0, 0, 0.7)'
+                });
+                setTimeout(() => {
+                    loading.close();
+                }, 2000);
                 if (key == 1) {
                     data.con = {
                         in1: true,
