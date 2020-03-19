@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
+    "server.apps.ServerConfig",
     "blog.apps.BlogConfig",
     "notice.apps.NoticeConfig",
     "note.apps.NoteConfig",
