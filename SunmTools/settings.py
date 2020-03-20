@@ -57,6 +57,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "SunmTools.urls"
+AUTH_USER_MODEL = "server.UserInfo"
 
 TEMPLATES = [
     {
@@ -90,7 +91,6 @@ if DEBUG:
             'HOST': '192.168.8.8',
             'PORT': '5432',
         },
-
     }
 else:
     DATABASES = {
