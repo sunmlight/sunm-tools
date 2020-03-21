@@ -23,9 +23,8 @@ sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG_PRO", True)
+DEBUG = int(os.environ.get("DEBUG_PRO", 1))
 if DEBUG:
-    print(11111111)
     SECRET_KEY = "5)(5ih(u#0a!i35sz$pk=!4ikjt3-+%d76u@i)utb_pv5wy@sa"
     # DATABASES = {
     #     'default': {
@@ -66,7 +65,6 @@ else:
         "ClientSecret": os.environ.get("WF_CS"),
     }
 
-print(DATABASES)
 ALLOWED_HOSTS = ["*"]
 
 
