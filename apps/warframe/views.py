@@ -10,10 +10,10 @@ from . import helper
 # Create your views here.
 class Index(generic.View):
     def get(self, request):
-        return HttpResponse('warframe')
+        return HttpResponse("warframe")
 
 
 class GetKey(generic.View):
     def get(self, request):
         r = helper.get_wf_key()
-        return HttpResponse('test')
+        return HttpResponse("test")

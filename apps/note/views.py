@@ -5,4 +5,4 @@ from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
 # Create your views here.
 class Index(generic.View):
     def get(self, request):
-        return HttpResponse('note')
+        return HttpResponse("note")

@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
-import os, sys
+import os, sys, dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,11 +21,52 @@ sys.path.insert(0, os.path.join(BASE_DIR, "apps"))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "5)(5ih(u#0a!i35sz$pk=!4ikjt3-+%d76u@i)utb_pv5wy@sa"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG_PRO", True)
+if DEBUG:
+    print(11111111)
+    SECRET_KEY = "5)(5ih(u#0a!i35sz$pk=!4ikjt3-+%d76u@i)utb_pv5wy@sa"
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.postgresql',
+    #         'NAME': 'tools',
+    #         'USER': 'sky',
+    #         'PASSWORD': 'password123',
+    #         'HOST': '192.168.8.8',
+    #         'PORT': '5432',
+    #     },
+    # }
+    DATABASES = {
+        "default": dj_database_url.config(
+            default="postgres://sky:password123@192.168.8.8:5432/tools",
+            conn_max_age=600,
+        )
+    }
+    # get cfg from local file
+    import local_cfg
 
+    WECHATAPI = local_cfg.WECHATAPI
+    WFAPI = local_cfg.WFAPI
+else:
+    SECRET_KEY = os.environ.get("SECRET_KEY")
+    DATABASES = {
+        "default": dj_database_url.config(
+            default=os.environ.get("DATABASE_URL"), conn_max_age=600
+        )
+    }
+    WECHATAPI = {
+        "ID": os.environ.get("WECHAT_ID"),
+        "SECRET": os.environ.get("WECHAT_SECRET"),
+        "TOCKEN": os.environ.get("WECHAT_TOCKEN"),
+    }
+    WFAPI = {
+        "BASE_URL": "https://api.richasy.cn",
+        "ClientId": os.environ.get("WF_CID"),
+        "ClientSecret": os.environ.get("WF_CS"),
+    }
+
+print(DATABASES)
 ALLOWED_HOSTS = ["*"]
 
 
@@ -81,25 +122,6 @@ WSGI_APPLICATION = "SunmTools.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'tools',
-            'USER': 'sky',
-            'PASSWORD': 'password123',
-            'HOST': '192.168.8.8',
-            'PORT': '5432',
-        },
-    }
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
-        }
-    }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -130,24 +152,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-STATIC_URL = '/static/'
-STATIC_ROOT= os.path.join(BASE_DIR,'staticfiles/')
+STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles/")
 STATICFILES_DIRS = ()
-
-WECHATAPI = {
-    "ID": os.environ.get("WECHAT_ID"),
-    "SECRET": os.environ.get("WECHAT_SECRET"),
-    "TOCKEN": os.environ.get("WECHAT_TOCKEN"),
-}
-
-WFAPI = {
-    "BASE_URL": "https://api.richasy.cn",
-    "ClientId": os.environ.get("WF_CID"),
-    "ClientSecret": os.environ.get("WF_CS"),
-}
-
-# get cfg from local file
-if not (WECHATAPI["ID"] or WFAPI["ClientId"]):
-    import local_cfg
-    WECHATAPI = local_cfg.WECHATAPI
-    WFAPI = local_cfg.WFAPI

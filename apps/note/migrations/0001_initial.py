@@ -8,41 +8,58 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Note',
+            name="Note",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('auth', models.CharField(blank=True, max_length=50, null=True)),
-                ('category', models.CharField(blank=True, max_length=50, null=True)),
-                ('tag', models.CharField(blank=True, max_length=255, null=True)),
-                ('title', models.CharField(blank=True, max_length=255, null=True)),
-                ('txt', models.TextField()),
-                ('delete', models.BooleanField(default=False)),
-                ('create_at', models.DateTimeField(auto_now_add=True)),
-                ('update_at', models.DateTimeField(auto_now=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("auth", models.CharField(blank=True, max_length=50, null=True)),
+                ("category", models.CharField(blank=True, max_length=50, null=True)),
+                ("tag", models.CharField(blank=True, max_length=255, null=True)),
+                ("title", models.CharField(blank=True, max_length=255, null=True)),
+                ("txt", models.TextField()),
+                ("delete", models.BooleanField(default=False)),
+                ("create_at", models.DateTimeField(auto_now_add=True)),
+                ("update_at", models.DateTimeField(auto_now=True)),
             ],
-            options={
-                'verbose_name': 'Note',
-                'verbose_name_plural': 'Notes',
-            },
+            options={"verbose_name": "Note", "verbose_name_plural": "Notes",},
         ),
         migrations.CreateModel(
-            name='NoteHistory',
+            name="NoteHistory",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('txt', models.TextField()),
-                ('version', models.IntegerField()),
-                ('delete', models.BooleanField(default=False)),
-                ('create_at', models.DateTimeField(auto_now_add=True)),
-                ('note', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='note.Note')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("txt", models.TextField()),
+                ("version", models.IntegerField()),
+                ("delete", models.BooleanField(default=False)),
+                ("create_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "note",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="note.Note"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'NoteHistory',
-                'verbose_name_plural': 'NoteHistorys',
+                "verbose_name": "NoteHistory",
+                "verbose_name_plural": "NoteHistorys",
             },
         ),
     ]

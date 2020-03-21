@@ -9,4 +9,4 @@ from django.conf import settings
 # Create your views here.
 class Index(generic.View):
     def get(self, request):
-        return HttpResponse('notice')
+        return HttpResponse("notice")

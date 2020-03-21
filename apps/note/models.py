@@ -24,7 +24,7 @@ class Note(models.Model):
 
 
 class NoteHistory(models.Model):
-    note = models.ForeignKey('Note', on_delete=models.CASCADE)
+    note = models.ForeignKey("Note", on_delete=models.CASCADE)
     txt = models.TextField()
     version = models.IntegerField()
     delete = models.BooleanField(default=False)
