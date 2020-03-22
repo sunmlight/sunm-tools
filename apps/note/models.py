@@ -8,7 +8,7 @@ class Note(models.Model):
         ("sys", "Sys"),
     )
     # 由于note与article类似，数据量小， 故存一张表
-    data_type = models.CharField(max_length=50, choices=data_type_choices)
+    data_type = models.CharField(max_length=50, choices=data_type_choices, default="note")
     auth = models.CharField(max_length=50, blank=True, null=True)
     public = models.BooleanField(default=False)
     category = models.CharField(max_length=50, blank=True, null=True)
