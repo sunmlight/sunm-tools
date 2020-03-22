@@ -3,6 +3,7 @@
 
 from .models import Note
 from django.db.models import Q
+from django.db import connections
 
 
 class NoteApi:
@@ -43,3 +44,11 @@ class NoteApi:
 
     def get_note_history(self, id):
         pass
+
+    def get_tags(self):
+        tags = []
+        with connections["default"].cursor() as cursor:
+            sql = "select unnest(string_to_array(tag, ',')) as tags, count(1) from note_note group by tags"
+            cursor.execute(sql)
+            tags = [(r[0], r[1]) for r in cursor.fetchall()]
+        return tags
