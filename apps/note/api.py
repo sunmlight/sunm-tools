@@ -46,6 +46,8 @@ class NoteApi:
         pass
 
     def get_tags(self):
+        # Note:tag 存储方式： ","分割的字符串： Tag1,tag2
+        # 返回方式： [(tag, count)]
         tags = []
         with connections["default"].cursor() as cursor:
             sql = "select unnest(string_to_array(tag, ',')) as tags, count(1) from note_note group by tags"
