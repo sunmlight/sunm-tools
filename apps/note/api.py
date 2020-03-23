@@ -37,20 +37,31 @@ class NoteApi:
         pass
 
     def del_notes(self, ids):
-        return Note.objects.filter(auth=self.auth, id__in=ids).update(delete=True)
+        return Note.objects.filter(auth=self.auth, id__in=ids, **self.base_filter).update(delete=True)
 
-    def create_note(self, obj):
-        pass
+    def create_one(self, obj):
+        if not (self.auth or (obj.get("title") and obj.get("txt"))):
+            return None
+        obj.update(self.base_filter)
+        if not obj.get("title"):
+            obj["title"] = obj["txt"][0:20]
+        if not obj.get("txt"):
+            obj["txt"] = obj["title"]
+        _d = Note(**obj)
+        return _d.save()
 
     def get_note_history(self, id):
         pass
 
-    def get_tags(self):
+    def get_tags(self, with_count=True):
         # Note:tag 存储方式： ","分割的字符串： Tag1,tag2
         # 返回方式： [(tag, count)]
         tags = []
         with connections["default"].cursor() as cursor:
             sql = "select unnest(string_to_array(tag, ',')) as tags, count(1) from note_note group by tags"
             cursor.execute(sql)
-            tags = [(r[0], r[1]) for r in cursor.fetchall()]
+            if with_count:
+                tags = [(r[0], r[1]) for r in cursor.fetchall()]
+            else:
+                tags = [r[0] for r in cursor.fetchall()]
         return tags
