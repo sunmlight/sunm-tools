@@ -1,7 +1,7 @@
 import hashlib
 from django.views import generic
 from django.http import HttpResponseRedirect, JsonResponse, HttpResponse
-from .we_msg import get_msg
+from .api import WeChatApi
 import datetime
 import time
 from django.views.decorators.csrf import csrf_exempt
@@ -32,7 +32,7 @@ class Index(generic.View):
 
     # get msg from user
     def post(self, request):
-        r = get_msg(request.body)
+        r = WeChatApi.get_msg(request.body)
         return HttpResponse(r)
 
     @csrf_exempt
