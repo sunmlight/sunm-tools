@@ -6,6 +6,19 @@ import cmn
 import os
 
 
+def helper():
+    pass
+
+
+def router(con):
+    option = str(con).strip().split()[0:3]
+    op1 = option[0] if len(option) > 0 else ""
+    op2 = option[1] if len(option) > 1 else ""
+    op3 = option[2] if len(option) > 2 else ""
+    
+
+
+
 class WeChatApi:
     def __init__(self, data):
         self.xmlData = ET.fromstring(data)
