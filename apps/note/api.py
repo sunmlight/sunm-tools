@@ -37,7 +37,9 @@ class NoteApi:
         pass
 
     def del_notes(self, ids):
-        return Note.objects.filter(auth=self.auth, id__in=ids, **self.base_filter).update(delete=True)
+        return Note.objects.filter(
+            auth=self.auth, id__in=ids, **self.base_filter
+        ).update(delete=True)
 
     def create_one(self, obj):
         if not (self.auth or (obj.get("title") and obj.get("txt"))):
@@ -51,9 +53,14 @@ class NoteApi:
         return _d.save()
 
     def get_note_history(self, id):
-        pass
+        note = Note.objects.filter(auth=self.auth, id=id, **self.base_filter)
+        if note:
+            return note.first().history()
+        else:
+            return []
 
     def get_tags(self, with_count=True):
+        # TODO: 增加查询条件
         # Note:tag 存储方式： ","分割的字符串： Tag1,tag2
         # 返回方式： [(tag, count)]
         tags = []
