@@ -15,6 +15,7 @@ class Note(models.Model):
     tag = models.CharField(max_length=255, blank=True, null=True)
     title = models.CharField(max_length=255, blank=True, null=True)
     txt = models.TextField()
+    version = models.IntegerField()
     delete = models.BooleanField(default=False)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
