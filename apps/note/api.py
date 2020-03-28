@@ -34,7 +34,20 @@ class NoteApi:
         return rsls
 
     def edit_note(self, id, obj):
-        pass
+        if not (self.auth or (obj.get("title") and obj.get("txt"))):
+            return None
+        obj.update(self.base_filter)
+        if not obj.get("title"):
+            obj["title"] = obj["txt"][0:20]
+        if not obj.get("txt"):
+            obj["txt"] = obj["title"]
+        _d = Note.objects.filter(auth=self.auth, id=id).first()
+        if not _d:
+            return None
+        if _d.history().count()>9:
+            _d.history().first().update(txt=_d.txt, version=_d.version)
+        else:
+            pass
 
     def del_notes(self, ids):
         return Note.objects.filter(

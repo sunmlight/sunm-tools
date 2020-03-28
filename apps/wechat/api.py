@@ -1,4 +1,4 @@
-from apps.server.models import UserInfo
+from server.models import UserInfo
 import xml.etree.ElementTree as ET
 import time
 import datetime
@@ -36,7 +36,7 @@ class WeChatApi:
         if u:
             self.user = u
 
-    def get_text_msg(self, content=self.con):
+    def get_text_msg(self, content):
         self.con_dict["con"] = content
         _r = """
         <xml>
