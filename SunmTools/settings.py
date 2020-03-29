@@ -38,7 +38,7 @@ if DEBUG:
     # }
     DATABASES = {
         "default": dj_database_url.config(
-            default="postgres://sky:password123@192.168.8.8:5432/tools",
+            default="postgres://sky:password123@127.0.0.1:5432/tools",
             conn_max_age=600,
         )
     }
