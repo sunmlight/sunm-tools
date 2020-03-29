@@ -1,7 +1,7 @@
 # note api for other app
 # API仅供app内部调用
 
-from .models import Note
+from .models import Note, NoteHistory
 from django.db.models import Q
 from django.db import connections
 
@@ -44,10 +44,17 @@ class NoteApi:
         _d = Note.objects.filter(auth=self.auth, id=id).first()
         if not _d:
             return None
-        if _d.history().count()>9:
-            _d.history().first().update(txt=_d.txt, version=_d.version)
-        else:
-            pass
+        obj["version"] = _d.version + 1
+        if self.data_type in ("note", "article"):
+            if _d.version > 9:
+                _d.history().first().update(txt=_d.txt, version=_d.version)
+            else:
+                NoteHistory(
+                    note = _d,
+                    txt = obj["txt"],
+                    version = _d.version,
+                ).save()
+        return _d.update(**obj)
 
     def del_notes(self, ids):
         return Note.objects.filter(
