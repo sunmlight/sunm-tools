@@ -4,6 +4,7 @@ from django.db import models
 class Note(models.Model):
     data_type_choices = (
         ("note", "Note"),
+        ("passwd", "PassWord"),
         ("article", "Article"),
         ("sys", "Sys"),
     )

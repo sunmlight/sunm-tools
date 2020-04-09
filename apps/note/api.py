@@ -45,7 +45,7 @@ class NoteApi:
         if not _d:
             return None
         obj["version"] = _d.version + 1
-        if self.data_type in ("note", "article"):
+        if self.data_type in ("note", "article", "passwd"):
             if _d.version > 9:
                 _d.history().first().update(txt=_d.txt, version=_d.version)
             else:
